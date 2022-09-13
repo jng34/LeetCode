@@ -8,10 +8,9 @@ var mySqrt = function(x) {
     j++;
   }
   
-  if (j*j === x) {
-    return j;
-  } else {
-    return j-1;
-  }
+  return (j*j === x) ? j : j-1
 }
+
+//time: O(n) 
+//space: O(n)
  
