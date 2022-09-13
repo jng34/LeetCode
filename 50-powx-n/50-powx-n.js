@@ -5,6 +5,7 @@
  */
 
 var myPow = function(x, n) {
+  //base case
    if (n === 0) return 1;
     
    //if n is negative
@@ -16,4 +17,7 @@ var myPow = function(x, n) {
    //if n is odd
    return myPow(x*x, (n-1)/2)*x
 };
+
+//time: O(n) -> n recursive calls
+//space: O(n) -> n call stacks
 
