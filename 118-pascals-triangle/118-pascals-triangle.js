@@ -32,3 +32,6 @@ var generate = function(numRows) {
     }
     return triangle;
 };
+
+//time: O(n^2)
+//space: O(n^2)
