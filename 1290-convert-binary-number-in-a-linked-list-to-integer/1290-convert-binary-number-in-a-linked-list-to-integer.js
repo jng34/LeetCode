@@ -1,0 +1,31 @@
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {number}
+ */
+var getDecimalValue = function(head) {
+    // Initialized result
+    let sum = 0;
+    let length = 0;
+    // Set a pointer
+    let curr = head;
+    // Traverse linked list for length
+    while (curr != null) {
+        length++;
+        curr = curr.next;
+    }
+
+    // Traverse linked list for sum
+    while (head != null) {
+        sum = sum + (head.val * 2**(length - 1));
+        length--;
+        head = head.next;
+    }
+    return sum;
+}
