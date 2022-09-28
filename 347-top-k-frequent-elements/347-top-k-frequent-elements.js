@@ -11,5 +11,9 @@ var topKFrequent = function(nums, k) {
         freqObj[num] = freqObj[num] + 1 || 1;
     }
     
-    return Object.entries(freqObj).sort((a,b) => b[1]-a[1]).map(val => Number(val[0])).slice(0, k);
+    //sort by vals in key-val entries by desc order
+    let sortedArr = Object.entries(freqObj).sort((a,b) => b[1]-a[1]);
+    let kMostFreq = sortedArr.map(val => Number(val[0])).slice(0, k);
+    
+    return kMostFreq;
 };
