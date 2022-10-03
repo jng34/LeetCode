@@ -18,14 +18,6 @@ var letterCombinations = function(digits) {
     
     let totalCombos = [...keyPad[digits[0]]], i=1;
     
-    // for (let i = 1; i < digits.length; i++) {
-    //     const digit = digits[i];
-    //     const digitLetters = keyPad[digit];
-    //     const tempArr = [];
-    //     for 
-    // }
-
-    //e.g. "23"
     while (i < digits.length) {
 
         const digit = digits[i];
@@ -49,20 +41,3 @@ var letterCombinations = function(digits) {
 
 
 
-
-/*
-    let result = [...letters[digits[0]]]
-    
-    for(let i = 1; i < digits.length; i++) {
-        const digit = digits[i]
-        const current = letters[digit]
-        const temp = []
-        for(let j = 0; j < result.length; j++) {
-            for(let k = 0; k < current.length; k++) {
-                temp.push(result[j] + current[k])
-            }
-        }
-        result = temp
-    }
-    return result
-};*/
