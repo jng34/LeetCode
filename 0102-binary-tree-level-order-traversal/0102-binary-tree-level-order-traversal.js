@@ -10,28 +10,52 @@
  * @param {TreeNode} root
  * @return {number[][]}
  */
-//Level order traversal aka breadth first traversal
 
+// Recursive solution
 var levelOrder = function(root) {
     
-    if (!root) return [];
-    let queue = [ root ];
-    let values = [];
-    
-    while(queue.length > 0) {
-        let qLength = queue.length;
-        let level = [];
-        for (let i = 0; i < qLength; i++) {
-            let curr = queue.shift();
-            if (curr.left) queue.push(curr.left);
-            if (curr.right) queue.push(curr.right);
-            level.push(curr.val);
+    function traverseLevel(node, level) {
+        if (!node) return; 
+        if (level >= values.length) {
+            values[level] = [];
         }
-        values.push(level);
+        values[level].push(node.val);
+        level++;
+        traverseLevel(node.left, level);
+        traverseLevel(node.right, level);
     }
     
-    return values;
+    let values = [];
+    let level = 0;   
+    traverseLevel(root, level);
+    
+    return values;  
 }
+
+
+
+//Level order traversal aka breadth first traversal
+
+// var levelOrder = function(root) {
+    
+//     if (!root) return [];
+//     let queue = [ root ];
+//     let values = [];
+    
+//     while(queue.length > 0) {
+//         let qLength = queue.length;
+//         let level = [];
+//         for (let i = 0; i < qLength; i++) {
+//             let curr = queue.shift();
+//             if (curr.left) queue.push(curr.left);
+//             if (curr.right) queue.push(curr.right);
+//             level.push(curr.val);
+//         }
+//         values.push(level);
+//     }
+    
+//     return values;
+// }
 
 // root = [3,9,20,8,5,15,7]
 
