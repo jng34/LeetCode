@@ -17,7 +17,6 @@ var averageOfLevels = function(root) {
     
     while(queue.length > 0) {
         let levelLength = queue.length;
-        let level = [];
         let sum = 0;
         // Iterate through each level and push val to level arr
         for (let i = 0; i < levelLength; i++) {
@@ -27,10 +26,7 @@ var averageOfLevels = function(root) {
             if (curr.right) queue.push(curr.right);
         }
         
-        // Find avg of level arr
-        let avg = sum / levelLength;
-        
-        values.push(avg);
+        values.push(sum / levelLength);
     }
     
     return values;
