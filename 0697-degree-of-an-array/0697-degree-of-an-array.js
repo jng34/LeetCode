@@ -21,7 +21,9 @@ var findShortestSubArray = function(nums) {
     };
     
     return smallest;
-
+    
+    //O(n) Time
+    //O(n) Space
 };
 
 
@@ -55,4 +57,7 @@ var findShortestSubArray = function(nums) {
 //     }
     
 //     return smallest;
+
+//    //O(n^2) time 
+//    //O(n) space
 // };
