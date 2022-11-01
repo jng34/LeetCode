@@ -27,12 +27,8 @@ var removeNthFromEnd = function(head, n) {
     let index = size - n, i = 0;
     curr = head;
     
-    while (i <= index) {
-        if (i === index) {
-            head = head.next;
-            break;
-        }
-        
+    if (index === 0) return head.next;
+    while (i < index) {
         if (i === index - 1){
             if (!curr.next.next) {
                 curr.next = null;  
@@ -41,6 +37,7 @@ var removeNthFromEnd = function(head, n) {
             }
             break;
         }
+        
         curr = curr.next;
         i++;
     }
