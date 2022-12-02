@@ -10,7 +10,6 @@
     Space: O(n)
 */
 var majorityElement = function(nums) {
-    const val = nums.length / 2;
     let majElem, count = 0;
     
     for (let n of nums) {
