@@ -9,23 +9,27 @@
     Time: O(n) 
     Space: O(n)
 */
-// var majorityElement = function(nums) {
-//     const val = nums.length / 2;
-//     let majElem, count;
-    
-//     for (let n of nums) {
-//         if (n)
-//     }
-// };
-
 var majorityElement = function(nums) {
-    let counter = {};
+    const val = nums.length / 2;
+    let majElem, count = 0;
     
     for (let n of nums) {
-        counter[n] = (counter[n] || 0) + 1;
+        if (count === 0) majElem = n;
+        count += (n === majElem ? 1 : -1)
     }
     
-    for (let n in counter) {
-        if (counter[n] > nums.length/2) return n;
-    }
+    return majElem;
 };
+
+// var majorityElement = function(nums) {
+//     const val = nums.length / 2;
+//     let counter = {};
+    
+//     for (let n of nums) {
+//         counter[n] = (counter[n] || 0) + 1;
+//     }
+    
+//     for (let n in counter) {
+//         if (counter[n] > val) return n;
+//     }
+// };
