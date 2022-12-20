@@ -1,7 +1,4 @@
-/**
- * @param {string} s
- * @return {string}
- */
-var reverseWords = function(s) {
-    return s.trim().split(/\s+/g).reverse().join(' ');
-};
+from re import split
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        return ' '.join(reversed(s.split()))
