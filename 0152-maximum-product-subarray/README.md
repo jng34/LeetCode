@@ -1,8 +1,6 @@
-<h2><a href="https://leetcode.com/problems/maximum-product-subarray/">152. Maximum Product Subarray</a></h2><h3>Medium</h3><hr><div><p>Given an integer array <code>nums</code>, find a contiguous non-empty subarray within the array that has the largest product, and return <em>the product</em>.</p>
+<h2><a href="https://leetcode.com/problems/maximum-product-subarray/">152. Maximum Product Subarray</a></h2><h3>Medium</h3><hr><div><p>Given an integer array <code>nums</code>, find a <span data-keyword="subarray-nonempty">subarray</span> that has the largest product, and return <em>the product</em>.</p>
 
 <p>The test cases are generated so that the answer will fit in a <strong>32-bit</strong> integer.</p>
-
-<p>A <strong>subarray</strong> is a contiguous subsequence of the array.</p>
 
 <p>&nbsp;</p>
 <p><strong class="example">Example 1:</strong></p>
