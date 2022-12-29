@@ -12,27 +12,18 @@
   Return count 
 */
 var numSubarrayProductLessThanK = function(nums, k) {
-  let count = 0;
-  
-  for (let i = 0; i < nums.length; i++) {  
-    if (nums[i] < k) {
-      count++;
-    } else {
-      continue;
+  if (k <= 1) return 0;
+  let count = 0, left = 0, right = 0, product = 1;
+  while (right < nums.length) {
+    product *= nums[right];
+    while (product >= k) {
+      product /= nums[left];
+      left++;
     }
-    count += _numSubarrayProductLessThanK(nums, k, i)  
+    count += right - left + 1;
+    right++;
   }
   return count;
 };
 
 
-function _numSubarrayProductLessThanK(nums, k, j) {
-  let counter = 0;
-  let prod = nums[j];
-  while (j < nums.length && prod * nums[j+1] < k) {
-      counter++;
-      prod = prod * nums[j+1];
-      j++;
-    }
-  return counter;
-}
