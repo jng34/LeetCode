@@ -3,14 +3,8 @@
  * @return {number}
  */
 
-/*
-  [2, 3, 2]
-*/
 var rob = function(nums) {
-  let max = nums[0];
-  const choice1 = rob1(nums, 0, {});
-  const choice2 = rob2(nums, 1, {});
-  return Math.max(nums[0], choice1, choice2);
+  return Math.max(nums[0], rob1(nums, 0, {}), rob2(nums, 1, {}));
 };
 
 var rob1 = function(nums, i, memo) {
