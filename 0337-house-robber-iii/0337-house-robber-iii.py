@@ -18,9 +18,9 @@ class Solution:
         right_with, right_without = right_side
         
         with_node = node.val + left_without + right_without
-        without_node = max(left_with, left_without) + max(right_with, right_without)
+        without_node = max(left_side) + max(right_side)
       
         return [with_node, without_node]
      
       # main return
-      return max(accomplice(root)[0], accomplice(root)[1])
+      return max(accomplice(root))
