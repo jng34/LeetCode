@@ -12,32 +12,21 @@
  * @return {number[][]}
  */
 var pathSum = function(root, targetSum) {
-    
-    function findPath(node) {
-        if (!node) return [];
-        if (!node.left && !node.right) return [[node.val]];
-        
-        let allPaths = [];
-        let leftPaths = findPath(node.left);
-        for (let path of leftPaths) {
-            allPaths.push([ node.val, ...path ]);
-        }
-        
-        let rightPaths = findPath(node.right);
-        for (let path of rightPaths) {
-            allPaths.push([ node.val, ...path ]);
-        }
-        
-        return allPaths;
-    }
-    
-    const allPaths = findPath(root);
-    return allPaths.filter((subPath) => subPath.reduce((a,b) => a+b, 0) === targetSum)
-   
+    return findPath(root, targetSum, [], []);
 };
 
-
-
-
-
-
+function findPath(root, sum, solution, result) {
+    if (!root) return result;
+    
+    solution.push(root.val);
+    if (!root.left && !root.right && root.val == sum) {
+        result.push(solution.slice());
+    }
+    
+    findPath(root.left, sum - root.val, solution, result);
+    findPath(root.right, sum - root.val, solution, result);
+    
+    solution.pop();
+    
+    return result;
+}
