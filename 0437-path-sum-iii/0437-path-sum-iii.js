@@ -14,6 +14,7 @@
 var pathSum = function(root, targetSum) {
     if (!root) return 0;
     let count = 0;
+    let stack = [root];
   
     var findPathSums = function(node, currSum) {
       if (!node) return;
@@ -23,15 +24,13 @@ var pathSum = function(root, targetSum) {
       findPathSums(node.right, currSum);
     }
     
-    var dfs = function(node) {
-      if (!node) return;
-      dfs(node.left);
-      dfs(node.right);
-      findPathSums(node, 0);
+    while(stack.length > 0) {
+      let curr = stack.pop();
+      if (curr.right) stack.push(curr.right);
+      if (curr.left) stack.push(curr.left);
+      findPathSums(curr, 0);
     }
-    
-    dfs(root);
-  
+      
     return count;
 };
 
