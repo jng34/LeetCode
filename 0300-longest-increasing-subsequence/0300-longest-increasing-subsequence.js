@@ -3,19 +3,13 @@
  * @return {number}
  */
 var lengthOfLIS = function(nums) {
-  let subseq = [ nums[0] ];
+  let dp = new Array(nums.length).fill(1);
   for (let i = 1; i < nums.length; i++) {
-    let curr = nums[i];
-    let prev = subseq[i - 1];
-    if (curr > prev) {
-      subseq.push(curr);
-    } else {
-      let j = 0;
-      while (curr > subseq[j]) {
-        j++;
+    for (let j = 0; j < i; j++) {
+      if (nums[i] > nums[j]) {
+        dp[i] = Math.max(dp[i], dp[j]+1);
       }
-      subseq[j] = curr;
     }
   }
-  return subseq.length;
+  return Math.max(...dp);
 };
