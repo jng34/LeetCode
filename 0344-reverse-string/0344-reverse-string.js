@@ -5,8 +5,8 @@
 var reverseString = function(s) {
   let i = 0, j = s.length - 1;
   while (i < j) {
-    let front = s[i], back = s[j]
-    s[i] = back;
+    let front = s[i];
+    s[i] = s[j];
     s[j] = front;
     i++;
     j--;
