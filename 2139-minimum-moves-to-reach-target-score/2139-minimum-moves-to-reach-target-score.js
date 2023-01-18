@@ -4,7 +4,7 @@
  * @return {number}
  */
 
-// Recursion
+
 var minMoves = function(target, maxDoubles) {
   let moves = 0;
   
@@ -20,11 +20,8 @@ var minMoves = function(target, maxDoubles) {
     moves++;
   }
   
-  // If maxDoubles is 0, then decrement by 1 all the way to 1
-  while (target > 1) {
-    target -= 1;
-    moves++;
-  }
+  // If maxDoubles is 0, then target - 1 = moves left to get to 1
+  moves += target - 1;
   
   return moves;
 };
