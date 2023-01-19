@@ -5,21 +5,14 @@
  */
 
 var subarraySum = function(nums, k) {
-  const freq = new Map();
-  freq.set(0,1);
+  const freq = {0: 1};
   let sum = 0, count = 0;
   
   for (let i = 0; i < nums.length; i++) {
     sum += nums[i];
     let diff = sum - k;
-    if (freq.has(diff)) {
-      count += freq.get(diff);
-    }
-    if (freq.has(sum)) {
-      freq.set(sum, freq.get(sum) + 1);
-    } else {
-      freq.set(sum, 1);
-    }
+    if (diff in freq) count += freq[diff];
+    sum in freq ? freq[sum] += 1 : freq[sum] = 1;
   }
   
   return count;
