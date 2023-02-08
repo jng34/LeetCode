@@ -10,12 +10,8 @@ var canConstruct = function(ransomNote, magazine) {
     }
     
     for (let letter of ransomNote) {
-        if (letter in freq) {
-            freq[letter] -= 1
-            if (freq[letter] < 0) return false;
-        } else {
-            return false;
-        }
+        if (!freq[letter]) return false;
+        freq[letter]--;
     }
     
     return true;
