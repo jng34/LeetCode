@@ -17,9 +17,5 @@ var groupAnagrams = function(strs) {
         }
     }
     
-    for (let key in hash) {
-        results.push(hash[key]);
-    }
-        
-    return results;
+    return Object.values(hash);        
 };
