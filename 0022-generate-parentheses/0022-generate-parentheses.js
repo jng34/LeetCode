@@ -3,31 +3,28 @@
  * @return {string[]}
  */
 var generateParenthesis = function(n) {
-    if (n === 1) return ["()"];
-    let result = [];
-    helper(n, n, '', result);
-    return result;
+  let stack = [];
+  let results = [];
+  
+  var backTrack = function(open, close) {
+    if (open === n && close === n) {
+      results.push(stack.join(''));
+      return;
+    }
+    
+    if (open < n) {
+      stack.push('(');
+      backTrack(open + 1, close);
+      stack.pop();
+    }
+    
+    if (close < open) {
+      stack.push(')');
+      backTrack(open, close + 1);
+      stack.pop();
+    }
+  }
+  
+  backTrack(0, 0);
+  return results;
 };
-
-/*
-
-*/
-function helper(open, close, str, result) {
-  // Open parentheses '(' must be greater than 
-  // close parentheses ')' at all times to stay valid
-  if (open > close) return;   
-  
-  // Base case
-  if (open === 0 && close === 0) {
-    result.push(str);
-    return;
-  }
-  
-  if (open > 0) {
-    helper(open - 1, close, `${str}(`, result);
-  }
-  
-  if (close > 0) {
-    helper(open, close - 1, `${str})`, result);
-  }
-}
