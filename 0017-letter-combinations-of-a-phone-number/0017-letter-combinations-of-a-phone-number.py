@@ -4,27 +4,26 @@ class Solution:
         return []
       
       keys = {
-        '2': ['a', 'b', 'c'],
-        '3': ['d', 'e', 'f'],
-        '4': ['g', 'h', 'i'],
-        '5': ['j', 'k', 'l'],
-        '6': ['m', 'n', 'o'],
-        '7': ['p', 'q', 'r', 's'],
-        '8': ['t', 'u', 'v'],
-        '9': ['w', 'x', 'y', 'z']
+        '2': 'abc',
+        '3': 'def',
+        '4': 'ghi',
+        '5': 'jkl',
+        '6': 'mno',
+        '7': 'pqrs',
+        '8': 'tuv',
+        '9': 'wxyz'
       }
       
-      combos = [*keys[digits[0]]]
-      i = 1
+      res = []
+      self.backTrack(keys, digits, 0, '', res)
+      return res
+    
+    
+    def backTrack(self, keys, nums, index, path, result):
+      if index == len(nums):
+        result.append(path)
+        return
       
-      while i < len(digits):
-        temp = []
-        letters = keys[digits[i]]
-        for char in combos:
-          for letter in letters:
-            temp.append(char + letter)
-        
-        combos = temp
-        i += 1
-      
-      return combos
+      letters = keys[nums[index]]
+      for l in letters:
+        self.backTrack(keys, nums, index + 1, path + l, result)
