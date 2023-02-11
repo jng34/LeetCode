@@ -4,8 +4,6 @@
  * @return {number}
  */
 var destroyTargets = function(nums, space) {
-    nums.sort((a,b) => a-b);
-    
     const tracker = {};
     for (let n of nums) {
         const rem = n % space;
@@ -14,16 +12,12 @@ var destroyTargets = function(nums, space) {
         }
         tracker[rem]++;
     };
+    let maxTargets = Math.max(...Object.values(tracker));
     
-    console.log(tracker)
-    
-    let minVal;
-    let maxTargets = 0;
-
+    let minVal = Infinity;
     for (let n of nums) {
         const rem = n % space;
-        if (tracker[rem] > maxTargets) {
-            maxTargets = tracker[rem];
+        if (tracker[rem] === maxTargets && n < minVal) {
             minVal = n;
         }
     };
