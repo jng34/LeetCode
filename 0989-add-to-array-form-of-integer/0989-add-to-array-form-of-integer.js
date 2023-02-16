@@ -4,6 +4,9 @@
  * @return {number[]}
  */
 var addToArrayForm = function(num, k) {
+  // Time O(m)  m = longer of num's length or k's length
+  // Space O(1)  handful of variables to store data
+  
   num.reverse();
   const n = String(k).split('').reverse();
   
