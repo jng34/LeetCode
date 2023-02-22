@@ -2,21 +2,18 @@
  * @param {number[]} nums
  * @return {number[][]}
  */
-
-//Time & Space: O(n!)
-
 var permute = function(nums) {
-  if (nums.length === 0) return [[]];
-  
-  const first = nums[0];
-  const perms = permute(nums.slice(1));
-  const fullPerms = [];
-  
-  for (let perm of perms) {
-    for (let i=0; i <= perm.length; i++) {
-      fullPerms.push([...perm.slice(0,i), first, ...perm.slice(i)]);
+  const solution = [];
+  function backTrack(index, nums, path) {
+    if (index === nums.length - 1) return solution.push(nums.slice());
+    
+    for (let i = index; i < nums.length; i++) {
+      [nums[i], nums[index]] = [nums[index], nums[i]];
+      backTrack(index + 1, nums, path);
+      [nums[i], nums[index]] = [nums[index], nums[i]];
     }
   }
   
-  return fullPerms;
+  backTrack(0, nums, []);
+  return solution;
 };
