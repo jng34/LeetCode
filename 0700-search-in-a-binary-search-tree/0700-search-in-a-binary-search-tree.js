@@ -12,14 +12,29 @@
  * @return {TreeNode}
  */
 var searchBST = function(root, val) {
-    // Base case
-    if (!root) return null;
-    if (root.val === val) return root;
-    
-    if (val > root.val) {
-        return searchBST(root.right, val);
-    } else {
-        return searchBST(root.left, val);
+    while (root) {
+        if (root.val === val) return root;
+        if (val > root.val) {
+            root = root.right;
+        } else {
+            root = root.left;
+        }
     }
+    return root;
+    
+    
+    
+    
+    
+    
+//     // Base case
+//     if (!root) return null;
+//     if (root.val === val) return root;
+    
+//     if (val > root.val) {
+//         return searchBST(root.right, val);
+//     } else {
+//         return searchBST(root.left, val);
+//     }
     
 };
