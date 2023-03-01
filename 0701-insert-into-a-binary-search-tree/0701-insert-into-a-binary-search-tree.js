@@ -12,23 +12,50 @@
  * @return {TreeNode}
  */
 var insertIntoBST = function(root, val) {
-    let newNode = new TreeNode(val)
+    const newNode = new TreeNode(val);
     if (!root) return newNode;
+    
     let curr = root;
     
-    if (curr.val < val) {
-        if (curr.right) {
-            insertIntoBST(curr.right, val);
-        } else {
-            curr.right = newNode;
-        }
-    } else {
-        if (curr.left) {
-            insertIntoBST(curr.left, val);
-        } else {
-            curr.left = newNode;
+    while (curr) {
+        if (val > curr.val) {
+            // insert if no right child
+            if (!curr.right) {
+                curr.right = newNode;
+                return root;
+            }
+            
+            // move left
+            curr = curr.right;
+        } else {      
+            // insert if no left child
+            if (!curr.left) {
+                curr.left = newNode;
+                return root;
+            }
+            
+            // move left
+            curr = curr.left;
         }
     }
     
-    return root;
+    
+//     let newNode = new TreeNode(val);
+//     if (!root) return newNode;
+//     let curr = root;
+    
+//     if (curr.val < val) {
+//         if (curr.right) {
+//             insertIntoBST(curr.right, val);
+//         } else {
+//             curr.right = newNode;
+//         }
+//     } else {
+//         if (curr.left) {
+//             insertIntoBST(curr.left, val);
+//         } else {
+//             curr.left = newNode;
+//         }
+//     }
+//     return root;
 };
