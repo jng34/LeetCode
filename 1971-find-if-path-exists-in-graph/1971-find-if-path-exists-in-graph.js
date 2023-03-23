@@ -8,21 +8,20 @@
 var validPath = function(n, edges, source, destination) {
     const graph = buildGraph(edges);
     const seen = new Set();
-    seen.add(source);
-    let queue = [source];
     
-    while (queue.length > 0) {        
-        const curr = queue.shift();
-        if (curr === destination) return true;
-        for (let neighbor of graph[curr]) {
-            if (!seen.has(neighbor)) {
-                seen.add(neighbor);
-                queue.push(neighbor);
-            }
+    const searchPath = (node) => {
+        if (node === destination) return true;
+        if (seen.has(node)) return false;
+        
+        seen.add(node);
+        for (let neighbor of graph[node]) {
+            if (searchPath(neighbor)) return true;
         }
-    }
+        
+        return false;
+     }
     
-    return false;
+    return searchPath(source);
 };
 
 const buildGraph = (edges) => {
@@ -38,3 +37,4 @@ const buildGraph = (edges) => {
     
     return graph;
 }
+
