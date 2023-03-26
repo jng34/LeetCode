@@ -3,24 +3,20 @@
  * @return {number}
  */
 var numTeams = function(rating) {
-    // Brute Force
     let teams = 0;
+    const greater = new Array(rating.length).fill(0);
+    const smaller = new Array(rating.length).fill(0);
     
-    for (let i = 0; i < rating.length - 2; i++) {
-        for (let j = i + 1; j < rating.length - 1; j++) {
-            for (let k = j + 1; k < rating.length; k++) {
-                if (rating[i] < rating[j]) {
-                    if (rating[j] < rating[k]) {
-                        teams++;
-                    }
-                } 
-                if (rating[i] > rating[j]) {
-                    if (rating[j] > rating[k]) {
-                        teams++;
-                    }
-                } 
+    for (let i = 0; i < rating.length; i++) {
+        for (let j = 0; j < i; j++) {
+            if (rating[i] < rating[j]) {
+                smaller[i] += 1;
+                teams += smaller[j];
+            } else {
+                greater[i] += 1;
+                teams += greater[j];
             }
-        } 
+        }
     }
     
     return teams;
