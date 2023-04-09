@@ -3,15 +3,10 @@
  * @return {number}
  */
 var arraySign = function(nums) {
-  let sign = 1;
+  let negativeNums = 0;
   for (let n of nums) {
-    if (n === 0) {
-      return 0;
-    } else if (n > 0) {
-      sign *= 1;
-    } else {
-      sign *= -1;
-    }
+    if (n === 0) return 0;
+    if (n < 0) negativeNums++;
   }
-  return sign;
+  return negativeNums % 2 === 0 ? 1 : -1;
 };
