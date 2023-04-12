@@ -11,20 +11,20 @@
  * @return {number}
  */
 var getMinimumDifference = function(root) {
-    const nodeValues = getNodeValues(root, []);
+    const nodeValues = [];
+    
+    function getNodeValues(node) {
+        if (!node) return;
+        getNodeValues(node.left);
+        nodeValues.push(node.val);
+        getNodeValues(node.right);
+    }
+    
+    getNodeValues(root);
+    
     let minDiff = Infinity;
     for (let i=1; i<nodeValues.length; i++) {
         minDiff = Math.min(minDiff, nodeValues[i]-nodeValues[i-1]);
     }
     return minDiff;
 };
-
-function getNodeValues(root, values) {
-    if (!root) return values;
-    
-    getNodeValues(root.left, values);
-    values.push(root.val);
-    getNodeValues(root.right, values);
-    
-    return values;
-}
