@@ -3,23 +3,19 @@
  * @return {number[][]}
  */
 var subsetsWithDup = function(nums) {
-  let index = 0;
+  let res = [];
   nums.sort((a,b) => a-b);
-  let results = [[]];
-  
-  for (let i = 0; i < nums.length; i++) {
-    let length = results.length;
-    for (let j = index; j < length; j++) {
-      results.push([...results[j], nums[i]]);
-    }
-    
-    if (nums[i + 1] === nums[i]) {
-      index = length;
-    } else {
-      index = 0;
-    }
-  }
-  
-  return results;
+  backtrack(0, [], nums, res);
+  return res;
 };
 
+function backtrack(index, path, nums, res) {
+  res.push([...path])
+  
+  for (let i=index; i<nums.length; i++) {
+    if (i > index && nums[i] === nums[i-1]) continue;
+    path.push(nums[i]);
+    backtrack(i+1, path, nums, res);
+    path.pop();
+  }
+}
