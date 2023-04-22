@@ -4,7 +4,6 @@
  */
 var findLongestChain = function(pairs) {
   pairs.sort((p1, p2) => p1[1]-p2[1]);
-  console.log(pairs)
   let longest = 1;
   let b = pairs[0][1];
   
