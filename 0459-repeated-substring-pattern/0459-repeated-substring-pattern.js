@@ -7,13 +7,11 @@ var repeatedSubstringPattern = function(s) {
     // console.log(s.substring(0,1))
     let i = 1;
     
-    while (i < s.length) {
+    while (i <= Math.floor(s.length/2)) {
         let subStr = s.substring(0, i);
         let newStr = '';
-        // console.log('substr, ', subStr)
         while (newStr.length <= s.length) {
             newStr += subStr;
-            // console.log('newStr, ', newStr)
             if (newStr === s) return true;
         }
         i++;
