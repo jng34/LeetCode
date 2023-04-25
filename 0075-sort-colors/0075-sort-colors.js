@@ -7,10 +7,11 @@ var sortColors = function(nums) {
     //            j  i
     //              idx
     let index = 0;
+    let i, j;
     
     while (index < nums.length) {
-        let i = nums.length-1;
-        let j = nums.length-2;
+        i = nums.length-1;
+        j = nums.length-2;
         while (j >= index) {
             if (nums[i] < nums[j]) {
                 [ nums[i], nums[j] ] = [ nums[j], nums[i] ]
@@ -19,7 +20,5 @@ var sortColors = function(nums) {
             j--;
         }
         index++;
-        // i = index;
-        // j = i-1;
     }
 };
