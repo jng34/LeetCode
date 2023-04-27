@@ -4,15 +4,17 @@
  */
 var findDisappearedNumbers = function(nums) {
     let missing = [];
-    const allNums = {};
     
-    for (let n of nums) {
-        allNums[n] = true;
+    for (let i = 0; i < nums.length; i++) {
+        const num = Math.abs(nums[i]);
+        const index = num-1;
+        nums[index] = Math.abs(nums[index]) * -1;
     }
     
-    for (let i=1; i<=nums.length; i++) {
-        if (!allNums[i]) missing.push(i);
-    }   
+    
+    for (let j = 0; j < nums.length; j++) {
+        if (nums[j] > 0) missing.push(j+1);
+    }
     
     return missing;
 };
