@@ -26,15 +26,15 @@ var validPalindrome = function(s) {
   // First check: skip left letter once and proceed
   function leftSkipCheck() { 
     while (l < r) {
-      if (s[l] === s[r]) {
-        l++;
-        r--;
-      } else {
+      if (s[l] !== s[r]) {
         if (!skip) return false; // Return false when you can't skip anymore
         lSkip = l;
         rSkip = r-1; //skip one from right for the Second check
         skip = false;
         l++; 
+      } else {
+        l++;
+        r--;
       } 
     }
     return true;
@@ -43,11 +43,11 @@ var validPalindrome = function(s) {
   // Second check: skip right letter once and proceed (regular validPalindrome fn)
   function rightSkipCheck() { 
     while (lSkip < rSkip) {
-      if (s[lSkip] === s[rSkip]) {
+      if (s[lSkip] !== s[rSkip]) {
+        return false;
+      } else {
         lSkip++;
         rSkip--;
-      } else {
-        return false;
       } 
     }
     return true;
