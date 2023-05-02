@@ -22,9 +22,7 @@ var deepestLeavesSum = function(root) {
     if (height === 0) {
       return node.val;
     } 
-    const leftLeaf = sumDeepestLeaves(node.left, height-1)
-    const rightLeaf = sumDeepestLeaves(node.right, height-1)
-    return leftLeaf + rightLeaf
+    return sumDeepestLeaves(node.left, height-1) + sumDeepestLeaves(node.right, height-1)
   }
   
   const maxHeight = findHeight(root);
