@@ -5,10 +5,10 @@
 var countAndSay = function(n) {
     if (n === 1) return "1";
     let say = "11";
-    let arr;
+    // let arr;
     while (n > 2) {
-        arr = strToPairs(say);
-        say = arrToStr(arr);
+        say = strToPairs(say);
+        // say = arrToStr(arr);
         n--;
     }    
     return say; 
@@ -31,13 +31,18 @@ function strToPairs(str) {
             map.push([String(count), String(val)]);
         }
     }
-    return map;   
-}
-
-function arrToStr(pairs) {
+    
     let res = [];
-    for (let pair of pairs) {
+    for (let pair of map) {
         res.push(...pair.flat());
     }
-    return res.join('')
+    return res.join('');
 }
+
+// function arrToStr(pairs) {
+//     let res = [];
+//     for (let pair of pairs) {
+//         res.push(...pair.flat());
+//     }
+//     return res.join('')
+// }
