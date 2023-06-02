@@ -3,18 +3,16 @@
  * @return {number}
  */
 var secondHighest = function(s) {
-    let largest = -Infinity;
-    let second = -Infinity;
+    let nums = [];
     for (let char of s) {
-        if (!isNaN(char)) {
-            if (char > largest && char > second) {
-                second = largest
-                largest = Number(char);
-            }
-            if (char > second && char < largest) {
-                second = Number(char);   
-            }
-        }
+        if (!isNaN(char)) nums.push(+char);
     }
-    return second === -Infinity ? -1 : second;
+    nums.sort((a,b) => a-b)
+    const max = nums[nums.length-1];
+    
+    while (nums.length > 0) {
+        const num = nums.pop();
+        if (num !== max) return num;
+    }
+    return -1;
 };
