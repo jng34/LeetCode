@@ -3,17 +3,18 @@
  * @return {number}
  */
 var secondHighest = function(s) {
-    let numsSet = new Set();
+    let largest = -Infinity;
+    let second = -Infinity;
     for (let char of s) {
-        if (!isNaN(char)) numsSet.add(Number(char));
+        if (!isNaN(char)) {
+            if (char > largest && char > second) {
+                second = largest
+                largest = Number(char);
+            }
+            if (char > second && char < largest) {
+                second = Number(char);   
+            }
+        }
     }
-    
-    let numsArr = [...numsSet].sort((a,b) => a-b);
-    const max = numsArr[numsArr.length-1];
-    
-    while (numsArr.length > 0) {
-        const num = numsArr.pop();
-        if (num !== max) return num;
-    }
-    return -1;
+    return second === -Infinity ? -1 : second;
 };
