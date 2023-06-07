@@ -14,7 +14,6 @@ var countUnguarded = function(m, n, guards, walls) {
     guards.forEach((guard) => grid[guard[0]][guard[1]] = 'G');
     
     for (let [x,y] of guards) {
-        
         //Check left of guard
         for (let i=y-1; i>=0; i--) {
             if (grid[x][i] ===  'W' || grid[x][i] ===  'G') break;
@@ -42,9 +41,7 @@ var countUnguarded = function(m, n, guards, walls) {
             grid[i][y] = 'x';
         }
     }
-    
-    console.log(grid)
-    
+        
     for (let r=0; r<grid.length; r++) {
         for (let c=0; c<grid[0].length; c++) {
             if (grid[r][c] === '') unGuarded++;
