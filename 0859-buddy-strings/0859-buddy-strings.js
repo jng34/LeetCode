@@ -26,8 +26,7 @@ var buddyStrings = function(s, goal) {
     for (let i=0; i<s.length; i++) {
         if (s[i] !== goal[i]) diffIndex.push(i);
     }
-    const first = strArr[diffIndex[0]];
-    strArr[diffIndex[0]] = strArr[diffIndex[1]];
-    strArr[diffIndex[1]] = first;
+    const [first, second] = diffIndex;
+    [strArr[first], strArr[second]] = [strArr[second], strArr[first]];
     return strArr.join('') === goal;        
 };
