@@ -6,17 +6,9 @@
 var fairCandySwap = function(aliceSizes, bobSizes) {
     let bobTotal = bobSizes.reduce((a,b) => a+b, 0);
     let aliceTotal = aliceSizes.reduce((a,b) => a+b, 0);
-    
-    for (let i=0; i<aliceSizes.length; i++) {
-        let aliceSum = aliceTotal;
-        let bobSum = bobTotal;
-        for (let j=0; j<bobSizes.length; j++) {
-            aliceSum = aliceSum - aliceSizes[i] + bobSizes[j];
-            bobSum = bobSum - bobSizes[j] + aliceSizes[i];
-            if (aliceSum === bobSum) return [aliceSizes[i], bobSizes[j]];
-            aliceSum = aliceTotal;
-            bobSum = bobTotal;
-        }
+    let bobSet = new Set([...bobSizes]);
+    for (let aliceGives of aliceSizes) {
+        let bobGives = aliceGives + (bobTotal-aliceTotal)/2;
+        if (bobSet.has(bobGives)) return [ aliceGives, bobGives ]; 
     }
-    
 };
