@@ -9,6 +9,12 @@ var maximumCandies = function(candies, k) {
     if (k > total) return 0;
     if (k === total) return 1;
     
+    // 1 2 3 4 5 6 7 8 9
+    //             l                 
+    //           m
+    //           r
+    
+    
     let l = 1, r = Math.max(...candies);
     while (l <= r) {
         const mid = Math.floor((l + r)/2); 
@@ -22,5 +28,5 @@ var maximumCandies = function(candies, k) {
             r = mid - 1;
         }
     }
-    return l-1;
+    return r;
 };
