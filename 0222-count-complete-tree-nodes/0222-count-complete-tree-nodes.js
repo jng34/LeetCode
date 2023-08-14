@@ -11,15 +11,24 @@
  * @return {number}
  */
 var countNodes = function(root) {
-  if (!root) return 0;
-  let count = 0;
-  let stack = [root];
-  while (stack.length > 0) {
-    const curr = stack.pop();
-    count++;
-    if (curr.left) stack.push(curr.left);
-    if (curr.right) stack.push(curr.right);
+  
+  function countLeft(node) {
+    if (!node) return 0;
+    return 1 + countLeft(node.left);
   }
-  return count;
+  
+  function countRight(node) {
+    if (!node) return 0;
+    return 1 + countRight(node.right);
+  }
+  
+  function countAll(node) {
+    const leftCt = countLeft(node);
+    const rightCt = countRight(node);
+    if (leftCt === rightCt) return 2**leftCt - 1;
+    return countAll(node.left) + countAll(node.right) + 1;
+  }
+  
+  return countAll(root);
 };
 
