@@ -4,25 +4,22 @@
  * @return {boolean}
  */
 var wordBreak = function(s, wordDict) {
+    // Tabulation
     const n = s.length;
-    return dp(s, {});
+    const dpTab = new Array(s.length + 1).fill(false);
+    dpTab[0] = true;
     
-    // dp helper function
-    function dp(str, memo) {
-        // base case should return boolean
-        if (str === "") return true;
-        if (str in memo) return memo[str];
+    for (let i=0; i<dpTab.length; i++) {
+        if (!dpTab[i]) continue;
         
         for (let word of wordDict) {
-            if (str.startsWith(word)) {
-                if (dp(str.slice(word.length), memo)) {
-                    memo[str] = true;
-                    return true;
+            if (s.slice(i, i + word.length) === word) {
+                if (i + word.length <= dpTab.length) {
+                    dpTab[i + word.length] = true;
                 }
             }
         }
-    
-        memo[str] = false;
-        return false;
     }
+    
+    return dpTab[s.length]
 };
