@@ -2,23 +2,26 @@
  * @param {string} s
  * @return {boolean}
  */
-
-// "( ( { [ ] } ) )"
 var isValid = function(s) {
     let stack = [];
-    let obj = {
-        "(": ")",
-        "[": "]",
-        "{": "}"
-    }
-    for (let i = 0; i < s.length; i++) {
-        const char = s[i];
-        const last = stack[stack.length-1];  
-        if (obj[last] === char) {
-          stack.pop();
+    const dict = {
+        ')': '(',
+        ']': '[',
+        '}': '{',
+    };
+    
+    for (let ch of s) {
+        if (!(ch in dict)) {
+            stack.push(ch);
         } else {
-          stack.push(char);
+            const top = stack[stack.length-1];
+            if (top === dict[ch]) {
+                stack.pop();
+            } else {
+                return false;
+            }
         }
     }
+    
     return stack.length === 0;
 };
