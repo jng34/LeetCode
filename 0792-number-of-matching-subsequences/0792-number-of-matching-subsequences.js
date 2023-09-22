@@ -4,20 +4,23 @@
  * @return {number}
  */
 var numMatchingSubseq = function(s, words) {
-    let ans=0;
-    for(const word of words){
-        let idx=-1;
-        let isSubseq=true;
+    function isSubsequence(word, s) {
+        let idx = -1;
         for(let i=0;i<word.length;i++){
             idx=s.indexOf(word[i],idx+1);
-            if(idx===-1){
-                isSubseq=false;
-                break;
-            }
+            if(idx===-1) return false;
         }
-        if(isSubseq){
-            ans++;
-        }
+        return true;
     }
-    return ans;
+    
+    let count = 0;
+    let seen = {};
+    for (let word of words) {
+        seen[word] = (seen[word] || 0) + 1;
+    }
+    for (let word in seen) {
+        const check = isSubsequence(word, s);
+        if (check) count += seen[word];
+    }
+    return count;
 };
