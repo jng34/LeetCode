@@ -18,23 +18,28 @@ var sumOfBeauties = function(nums) {
     
     const n = nums.length;
     let sum = 0;
+    let maxPrev = [];
+    maxPrev[0] = nums[0];
     let minLatter = [];
     minLatter[n-1] = nums[n-1];
     
-    // Fill array of min vals from the right of each elem
-    for (let i=n-2; i>1; i--) {
-        minLatter[i] = Math.min(minLatter[i+1], nums[i]);
+    // Fill array of max vals from the left of each elem
+    for (let i=1; i<n-1; i++) {
+        maxPrev[i] = Math.max(maxPrev[i-1], nums[i]);
     }
     
-    let maxPrev = nums[0];
+    // Fill array of min vals from the right of each elem
+    for (let i=n-2; i>1; i--) {
+        minLatter[i] = Math.min(nums[i], minLatter[i+1]);
+    }
+    
     for (let i=1; i<n-1; i++) {
         const curr = nums[i];
-        if (curr > maxPrev && curr < minLatter[i+1]) {
+        if (curr > maxPrev[i-1] && curr < minLatter[i+1]) {
             sum+=2;
         } else if (curr > nums[i-1] && curr < nums[i+1]) {
             sum+=1;
         } 
-        maxPrev = Math.max(maxPrev, nums[i]);
     }
     
     return sum;
