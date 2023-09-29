@@ -4,9 +4,9 @@
  */
 var isPerfectSquare = function(num) {
     let i = 1;
-    while (i**2 <= num) {
-        if (i**2 === num) return true;
-        i++;
+    while (num > 0) {
+        num -= i;
+        i+=2;
     }
-    return false;
+    return num === 0;
 };
