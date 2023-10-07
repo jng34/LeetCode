@@ -5,7 +5,7 @@
 var stoneGame = function(piles) {
     const n = piles.length;
     const memo = {};
-    return helper(0, n-1, 1) > 0;
+    return helper(0, n-1, true) > 0;
     
     // aliceTurn => Alice: true, Bob: false
     function helper(start, end, aliceTurn) {
