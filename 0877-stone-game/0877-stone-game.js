@@ -5,20 +5,27 @@
 var stoneGame = function(piles) {
     const n = piles.length;
     const memo = {};
-    return helper(0, n-1) > 0;
+    return helper(0, n-1, 1) > 0;
     
-    function helper(start, end) {
-        if (start === end) return piles[start];
+    // aliceTurn => Alice: true, Bob: false
+    function helper(start, end, aliceTurn) {
+        if (start > end) return 0;
         const key = start+','+end;
         if (memo[key]) return memo[key];
         
-        const pickStart = piles[start] - helper(start+1, end);
-        const pickEnd = piles[end] - helper(start, end-1);
+        if (aliceTurn) {
+            memo[key] = Math.max(
+                piles[start] + helper(start+1, end, false),
+                piles[end] + helper(start, end-1, false)    
+            )
+        } else {
+            memo[key] = Math.min(
+                -piles[start] + helper(start+1, end, true),
+                -piles[end] + helper(start, end-1, true)    
+            )
+        }
         
-        const result = Math.max(pickStart, pickEnd);
-        memo[key] = result;
-        
-        return result;
+        return memo[key];
     }
     
 };
