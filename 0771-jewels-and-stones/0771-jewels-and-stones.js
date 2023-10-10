@@ -4,15 +4,11 @@
  * @return {number}
  */
 var numJewelsInStones = function(jewels, stones) {
-    const freq = {};
     let count = 0;
-    
-    for (let s of stones) {
-        freq[s] = (freq[s] || 0) + 1;
-    }
     for (let j of jewels) {
-        if (j in freq) count += freq[j];
+        for (let s of stones) {
+            if (j === s) count++;
+        }
     }
-
     return count;
 };
