@@ -26,32 +26,32 @@ var stoneGameII = function(piles) {
     */
     
     const n = piles.length;
-    const memo = {};
-    return helper(0, 1, true);
+    const dp = Array(2).fill().map(() => Array.from(Array(n+1), () => new Array(n+1).fill(-1)))
+    // dp = [ [n+1 length], [n+1 length] ]
+    //              A            B
+    return helper(0, 1, 0);
     
-    // Turn: alice = true, bob = false
-    function helper(index, M, aliceTurn) {
+    // Turn: alice = 0, bob = 1
+    function helper(index, M, turn) {
         // helper fn returns number of stones alice can get (in terms of alice)
-        const key = index + ',' + M + ',' + aliceTurn;
-        if (memo[key]) return memo[key];
         if (index === n) return 0; 
+        if (dp[turn][index][M] !== -1) return dp[turn][index][M];
         
+        let alice = turn === 0 ? -Infinity: Infinity;
         let sum = 0;
-        let alice = aliceTurn ? -Infinity: Infinity;
-        
+
         for (let x=1; x<=Math.min(2*M, n-index); x++) {
             sum += piles[index + x - 1];
-            if (aliceTurn) { 
+            if (turn === 0) { 
                 // Alice's turn -> maximize stones
-                alice = Math.max(alice, sum + helper(index + x, Math.max(M, x), false));
+                alice = Math.max(alice, sum + helper(index + x, Math.max(M, x), 1));
             } else { 
                 // Bob's turn -> minimize stones
-                alice = Math.min(alice, helper(index + x, Math.max(M, x), true));
+                alice = Math.min(alice, helper(index + x, Math.max(M, x), 0));
             }
-            memo[key] = alice;
         }
-        
-        return memo[key];
+        dp[turn][index][M] = alice;
+        return dp[turn][index][M];
     }
 };
 
