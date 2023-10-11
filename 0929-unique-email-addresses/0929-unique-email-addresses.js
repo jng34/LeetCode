@@ -3,13 +3,16 @@
  * @return {number}
  */
 var numUniqueEmails = function(emails) {
-    const regEx = /(\+.*\@|\@)/g
     const addresses = new Set();
     
     for (let email of emails) {
-        const arr = email.split(regEx);
-        const [local, domain] = [arr[0], arr[arr.length-1]]
-        const address = local.split(/\./g).join('') + '@' + domain;
+        let address = '';
+        for (let ch of email) {
+            if (ch === '+' || ch === '@') break;
+            if (ch === '.') continue;
+            address += ch;
+        }
+        address += email.substring(email.indexOf('@'));
         if (!addresses.has(address)) addresses.add(address);
     }
     
