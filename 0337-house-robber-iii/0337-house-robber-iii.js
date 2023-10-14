@@ -10,29 +10,28 @@
  * @param {TreeNode} root
  * @return {number}
  */
-
-
 var rob = function(root) {
-
-  function accomplice(node) {
-    if (!node) return [0, 0];
+    // DFS + Memoization w/ Map (key: node, val: max $)
+    const memo = new Map();
+    return robMax(root);
     
-    // Left side
-    const leftSide = accomplice(node.left)
-    const [leftWith, leftWithOut] = leftSide;
-    // Right side
-    const rightSide = accomplice(node.right)
-    const [rightWith, rightWithOut] = rightSide;
+    function robMax(node) {
+        if (memo.has(node)) return memo.get(node);
+        if (!node) return 0;
+        /*
+            Choose curr + :
+                Decision1: curr.left.left + curr.left.right
+                Decision2: curr.right.left + curr.righ.right
+        */
+        let chooseHouse = node.val;
+        if (node.left) chooseHouse += robMax(node.left.left) + robMax(node.left.right)
+        if (node.right) chooseHouse += robMax(node.right.left) + robMax(node.right.right)
+        
+        // Skip curr
+        const skipHouse = robMax(node.left) + robMax(node.right);
+        
+        memo.set(node, Math.max(chooseHouse, skipHouse));
+        return memo.get(node);
+    }
     
-    // With and Without Node
-    const withNode = node.val + leftWithOut + rightWithOut;
-    const withOutNode = Math.max(...leftSide) + Math.max(...rightSide);
-          
-    return [withNode, withOutNode];
-  }
-  
-  return Math.max(...accomplice(root));
-
 };
-
-
