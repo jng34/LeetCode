@@ -1,14 +1,16 @@
-class Solution:
-    def rob(self, nums: List[int]) -> int:
-      
-      def _rob(nums, i, memo):  
-        if i in memo:
-          return memo[i]
-        if i >= len(nums):
-          return 0
-        include_first = nums[i] + _rob(nums, i+2, memo)
-        exclude_first = _rob(nums, i+1, memo)
-        memo[i] = max(include_first, exclude_first)
-        return memo[i]
-    
-      return _rob(nums, 0, {})
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var rob = function(nums) {
+    // Bottom up approach - tabulation
+    const n = nums.length;
+    if (n === 1) return nums[0];
+    const dp = new Array(n).fill(0);
+    dp[0] = nums[0];
+    dp[1] = Math.max(nums[0], nums[1]);
+    for (let i=2; i<nums.length; i++) {
+        dp[i] = Math.max(dp[i-2]+nums[i], dp[i-1]);
+    }
+    return dp[n-1];
+};
