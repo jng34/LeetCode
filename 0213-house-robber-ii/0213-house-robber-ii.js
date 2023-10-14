@@ -2,31 +2,31 @@
  * @param {number[]} nums
  * @return {number}
  */
-
 var rob = function(nums) {
-  return Math.max(nums[0], rob1(nums, 0, {}), rob2(nums, 1, {}));
+    // Dynamic Programming bottom up approach - tabulation
+    const n = nums.length;
+    if (n === 1) return nums[0];
+    return Math.max(helper1(), helper2());
+    
+    function helper1() {
+        // Do not try the last house
+        const dp = new Array(n-1).fill(0);        
+        dp[0] = nums[0];
+        dp[1] = Math.max(dp[0], nums[1]);
+        for (let i=2; i<n-1; i++) {
+            dp[i] = Math.max(dp[i-2] + nums[i], dp[i-1]);
+        }
+        return dp[n-2];
+    }
+    
+    function helper2() {
+        //skip first house
+        const dp = new Array(n-1).fill(0);        
+        dp[1] = nums[1];
+        dp[2] = Math.max(dp[1], nums[2]);
+        for (let i=3; i<n; i++) {
+            dp[i] = Math.max(dp[i-2] + nums[i], dp[i-1]);
+        }
+        return dp[n-1];
+    }
 };
-
-var rob1 = function(nums, i, memo) {
-  if (i in memo) return memo[i]
-  if (i >= nums.length - 1) return 0;
-  
-  const include = nums[i] + rob1(nums, i+2, memo);
-  const exclude = rob1(nums, i+1, memo);    
-  memo[i] = Math.max(include, exclude)
-  
-  return memo[i];
-}
-
-var rob2 = function(nums, j, memo) {
-  if (j in memo) return memo[j]
-  if (j >= nums.length) return 0;
-  
-  const include = nums[j] + rob2(nums,j+2, memo);
-  const exclude = rob2(nums, j+1, memo);    
-  memo[j] = Math.max(include, exclude)
-  
-  return memo[j];
-}
-
-
