@@ -29,28 +29,18 @@ var deleteAndEarn = function(nums) {
         return memo[elem]
     */
     
-    const memo = {};
-    nums.sort((a,b) => a-b);
-    return helper(0);
-    
-    // Helper fn
-    function helper(idx) {
-        if (idx >= nums.length) return 0;
-        if (memo[idx]) return memo[idx];
-        
-        let earned = nums[idx];
-        let skipIdx = idx+1;
-        
-        while (skipIdx < nums.length && nums[skipIdx] === nums[idx]) {
-            earned += nums[idx];
-            skipIdx++;
-        }
-        
-        while (skipIdx < nums.length && nums[skipIdx] === nums[idx] + 1) {
-            skipIdx++;
-        }
-        
-        memo[idx] = Math.max(earned + helper(skipIdx), helper(idx + 1))
-        return memo[idx];
+    const n = nums.length;
+    let maxVal = Math.max(...nums);
+    const dp = new Array(maxVal+1).fill(0);
+    for (let n of nums) {
+        dp[n] += n;
     }
+    
+    dp[1] = Math.max(dp[0], dp[1]);
+    
+    for (let i=2; i<dp.length; i++) {
+        dp[i] = Math.max(dp[i] + dp[i-2], dp[i-1]);
+    }
+    
+    return dp[maxVal];
 };
