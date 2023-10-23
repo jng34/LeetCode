@@ -2,14 +2,14 @@
  * @param {number[]} cost
  * @return {number}
  */
-
 var minCostClimbingStairs = function(cost) {
-    // DP - Tabulation
-    // add top floor level
-    cost.push(0);
-    for (let i = cost.length - 3; i >= 0; i--) {
-        cost[i] += Math.min(cost[i+1], cost[i+2]);
+    const n = cost.length;
+    const dp = Array(n+1).fill(0);
+    dp[0] = cost[0];
+    dp[1] = cost[1];
+    for (let i=2; i<n; i++) {
+        dp[i] = cost[i] + Math.min(dp[i-1], dp[i-2])
     }
-    
-    return Math.min(cost[0], cost[1]);
+    dp[n] = Math.min(dp[n-1], dp[n-2])
+    return dp[n];
 };
