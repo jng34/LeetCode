@@ -20,16 +20,14 @@ var getWinner = function(arr, k) {
             if winner = max elem OR win count = k, then return winner
     */
     const maxElem = Math.max(...arr);
-    let winner = arr.shift();
+    let winner = arr[0];
     let winCount = 0;
     
-    while (arr.length > 0) {
-        const opponent = arr.shift();
+    for (let i=1; i<arr.length; i++) {
+        const opponent = arr[i];
         if (winner > opponent) {
             winCount++;
-            arr.push(opponent);
         } else {
-            arr.push(winner);
             winner = opponent;
             winCount = 1;
         }
