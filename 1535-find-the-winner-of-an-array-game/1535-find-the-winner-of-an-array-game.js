@@ -18,9 +18,7 @@ var getWinner = function(arr, k) {
             -increment winner's count
             if winner's count = k, then return winner
     */
-    
-    if (k >= arr.length) return Math.max(...arr);
-    
+    const maxElem = Math.max(...arr);
     let winner = arr.shift();
     let winCount = 0;
     
@@ -34,6 +32,6 @@ var getWinner = function(arr, k) {
             winner = opponent;
             winCount = 1;
         }
-        if (winCount === k) return winner;
+        if (winCount === k || winner === maxElem) return winner;
     }
 };
