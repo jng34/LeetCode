@@ -5,18 +5,19 @@
  */
 var getWinner = function(arr, k) {
     /*
-        [7,6,4,5,3,1,2]
-        if k >= length of arr, then return max element in arr
-        if k < length of arr, then simulate game.
-        let count = {} -> hashmap that keeps count of consecutive wins for each element.
-        Reverse arr.
-        Use a stack (loser) to use as temporary storage of loser to replace at end of line.
-        while count != k:
-            -pop off two elements (last two) to compare
-            -loser goes into the loser stack
-            -push winner back into arr
-            -increment winner's count
-            if winner's count = k, then return winner
+        Implement a queue for simulation
+        Find max element in arr - we know max elem will be winner if it comes to play
+        Initialize win count = 0 and winner = arr[0].
+        while arr.length > 0 (always true):
+            opponent = arr.shift()
+            if winner > opponent:
+                push opponent to back of queue
+                increment win count
+            else:
+                push winner to back of queue
+                winner = opponent
+                reset win count to 1
+            if winner = max elem OR win count = k, then return winner
     */
     const maxElem = Math.max(...arr);
     let winner = arr.shift();
@@ -32,6 +33,6 @@ var getWinner = function(arr, k) {
             winner = opponent;
             winCount = 1;
         }
-        if (winCount === k || winner === maxElem) return winner;
+        if (winner === maxElem || winCount === k) return winner;
     }
 };
