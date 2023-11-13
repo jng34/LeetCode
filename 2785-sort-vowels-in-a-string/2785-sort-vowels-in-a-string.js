@@ -3,38 +3,28 @@
  * @return {string}
  */
 var sortVowels = function(s) {
-    /*
-        Keep It Simple.
-        Create a set that contains all vowels.
-        Create an array to store permutation t.
-        Create another array to collect all vowels.
-        For each char in s:
-            if char is in set, add to vowels array.
-        Sort vowels in descending ASCII value.
-        For each char in s:
-            if char is not a vowel, then push into array t.
-            else pop from vowels array and push into array t.
-        Join the array and return string.
-    */
-    
-    const vowels = new Set([...'aeiou']);
-    let t = [], vowelsArr = [];
+    const vowels = 'AEIOUaeiou';
+    const vowelSet = new Set([...vowels]);
+    const freq = {};
+    let t = '';
     
     for (let ch of s) {
-        if (vowels.has(ch.toLowerCase())) {
-            vowelsArr.push(ch);
+        if (vowelSet.has(ch)) {
+            freq[ch] = (freq[ch] || 0) + 1;
         }
     }
     
-    vowelsArr.sort().reverse();
-    
+    let j = 0;
+
     for (let ch of s) {
-        if (vowels.has(ch.toLowerCase())) {
-            t.push(vowelsArr.pop());
+        if (!vowelSet.has(ch)) {
+            t += ch;
         } else {
-            t.push(ch);
+            while (!freq[vowels[j]]) j++;
+            t += vowels[j];
+            freq[vowels[j]] = freq[vowels[j]] - 1;
         }
     }
-    
-    return t.join('');
+
+    return t;
 };
