@@ -21,14 +21,7 @@ var findDiagonalOrder = function(mat) {
       const sum = r+c;
       
       if (diagonals[sum]) {
-        // If sum is even
-        if (sum % 2 === 0) {
-          diagonals[sum].push(mat[r][c]);
-        } else {
-          // If sum is odd
-          diagonals[sum].unshift(mat[r][c]);
-        }
-        
+        diagonals[sum].push(mat[r][c]);
       } else {
         diagonals[sum] = [mat[r][c]];
       }
@@ -39,7 +32,11 @@ var findDiagonalOrder = function(mat) {
   let i = 0;
   
   while (i in diagonals) {
-    ans.push(...diagonals[i]);
+    if (i % 2 === 1) {
+      ans.push(...diagonals[i].reverse());
+    } else {
+      ans.push(...diagonals[i]);
+    }
     i++;
   }
   
