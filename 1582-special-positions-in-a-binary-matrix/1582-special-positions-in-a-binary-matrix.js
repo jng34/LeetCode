@@ -27,11 +27,14 @@ var numSpecial = function(mat) {
     }
   }
   
-  // Iterate through matrix again.
-  for (let r=0; r<mat.length; r++) {
-    for (let c=0; c<mat[0].length; c++) {
-      if (mat[r][c] === 1 && rowCount[r] === 1 && colCount[c] === 1) {
-        count++;
+  // Iterate through rolCount and colCount arrays.
+  for (let r=0; r<rowCount.length; r++) {
+    if (rowCount[r] === 1) {
+      for (let c=0; c<colCount.length; c++) {
+        if (colCount[c] === 1 && mat[r][c] === 1) {
+          count++;
+          break;
+        }
       }
     }
   }
