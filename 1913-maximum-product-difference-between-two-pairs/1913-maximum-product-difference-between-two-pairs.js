@@ -3,14 +3,27 @@
  * @return {number}
  */
 var maxProductDifference = function(nums) { 
-  // Sort nums in descending order
-  nums.sort((a,b) => b-a);
+  // Iterate through nums to find max1, max2, min1, min2
+  let max1=-Infinity, max2=-Infinity, min1=Infinity, min2=Infinity;
   
-  // Find product of first two elems and product of last two elems
-  const n = nums.length;
-  const maxProd = nums[0]*nums[1];
-  const minProd = nums[n-1]*nums[n-2];
+  for (let n of nums) {
+    
+    // Update max1 and max2
+    if (n > max1) {
+      max2 = max1;
+      max1 = n;
+    } else {
+      max2 = Math.max(n, max2);
+    }
+    
+    // Update min1 and min2
+    if (n < min1) {
+      min2 = min1;
+      min1 = n;
+    } else {
+      min2 = Math.min(n, min2);
+    }
+  }
   
-  // Return difference of products
-  return maxProd-minProd;
+  return (max1*max2)-(min1*min2);
 };
