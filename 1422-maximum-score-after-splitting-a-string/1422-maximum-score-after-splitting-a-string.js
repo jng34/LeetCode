@@ -3,22 +3,27 @@
  * @return {number}
  */
 var maxScore = function(s) {
-    let sumOfOnes = 0;
-    let sumOfZeroes = 0;
-    let maxScore = sumOfOnes + sumOfZeroes;
+  // Sum up all 1s in s.
+  let ones = 0;
+  for (let i=0; i<s.length; i++) {
+    if (s[i] === '1') ones++;
+  }
+  
+  let score = 0;
+  let zeroes = 0;
+
+  // Iterate through s.
+  for (let i=0; i<s.length-1; i++) {
     
-    for (let char of s) {
-        if (char === '1') sumOfOnes++;
-    }
-        
-    for (let i=0; i<s.length-1; i++) {
-        if (s[i] === '0') {
-            sumOfZeroes++;
-        } else {
-            sumOfOnes--;
-        }
-        maxScore = Math.max(maxScore, sumOfOnes + sumOfZeroes);
+    if (s[i] === '1') { // If element is 1, decrement from ones count 
+      ones--;
+    } else { // else increment zeroes.
+      zeroes++;
     }
     
-    return maxScore;
+    // Sum up score and update max score.
+    score = Math.max(score, zeroes + ones);
+  }
+  
+  return score;
 };
