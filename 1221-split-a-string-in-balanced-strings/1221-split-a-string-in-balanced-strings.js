@@ -11,17 +11,12 @@
 
 
 var balancedStringSplit = function(s) {
-  let strings = 0;
-  
-  let lCount = 0;
+  let strings = 0; // track num of balanced strings
+  let lCount = 0; // track L count
   
   for (let i=0; i<s.length; i++) {
-    if (s[i] === 'L') {
-      lCount++;
-    } else {
-      lCount--;
-    }
-    
+    // increment by 1 for L and decrement by 1 if R
+    lCount += s[i] === 'L' ? 1 : -1;  
     if (lCount === 0) strings++;
   }
   
