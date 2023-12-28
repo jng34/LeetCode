@@ -5,37 +5,32 @@
  * @return {number}
  */
 
-// Dynamic programming
-// if total is 0, increment count by 1.
-// if dice is 0, return
-// for each value from 1 to k,
-// Recursively call helper(dice - 1, total - value, memo)  
-
+// Dynamic programming - bottom up approach
 
 var numRollsToTarget = function(n, k, target) {
+  // Time: O(n * k * target)
+  // Space: O(n * target)
+  
   const MOD = 10**9 + 7;	
-  const memo = Array(n + 1).fill(-1).map(() => Array(target + 1).fill(-1));
-  return countWays(n, target, memo);
   
-  function countWays(dice, total, memo) {
-    // Base cases
-    if (dice * k < total) return 0;
-    if (total < 0) return 0;
-    if (dice === 0) return total === 0 ? 1 : 0;
-    
-    if (memo[dice][total] !== -1) return memo[dice][total];
+  // dp - 2D array - where first index is number of dice and second is current target value. 
+  const dp = Array(n + 1).fill().map(() => Array(target + 1).fill(0));
   
-    let count = 0;
-
-    for (let val=1; val<=k; val++) {
-      count = (count + countWays(dice-1, total-val, memo)) % MOD;
-    }
-
-    // Memoization to avoid TLE
-    memo[dice][total] = count % MOD;
-    
-    return memo[dice][total]; 
+  // There is one way to get 0 dice and 0 target.
+  dp[0][0] = 1; 
+  
+  // Iterate through number of dice
+  for (let dice=1; dice<=n; dice++) {
+    for (let total=1; total<=target; total++) {
+      for (let val=1; val<=k; val++) {
+        if (total >= val) {
+          dp[dice][total] = (dp[dice][total] + dp[dice-1][total-val]) % MOD;
+        } else {
+          break;
+        }
+      }
+    } 
   }
-  
-  
+
+  return dp[n][target];
 };
