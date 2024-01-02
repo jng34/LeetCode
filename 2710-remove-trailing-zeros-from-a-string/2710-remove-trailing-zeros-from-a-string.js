@@ -5,19 +5,16 @@
 
 
 
-var removeTrailingZeros = function(num) {
-  // Pseudocode:
-  // Create an array for num.
-  let numArr = Array.from(num);
+var removeTrailingZeros = function(num) {  
+  // Iterate from the end of num to front, 
+  // where num[idx] != '0';
+  // return num.substring(0, idx+1);
   
-  // Iterate from the end of num to the front.
-  // let idx = num.length-1
-  let i = numArr.length - 1;
+  let i = num.length - 1;
   
-  while (numArr[i] === '0') {
-    numArr.pop(); // Pop the zero
+  while (num[i] === '0') {
     i--;
   }
   
-  return numArr.join('');
+  return num.substring(0, i+1);
 };
