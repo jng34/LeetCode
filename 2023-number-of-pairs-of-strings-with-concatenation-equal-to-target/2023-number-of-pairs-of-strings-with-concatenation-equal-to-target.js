@@ -5,18 +5,32 @@
  */
 
 var numOfPairs = function(nums, target) {
-  // Brute force method
+  // Hashmap method
+  const map = {};
   let pairs = 0;
-  // For nums[i:nums.length-1):
-  for (let i=0; i<nums.length-1; i++) {
-    // For num[i+1:nums.length-1]:
-    for (let j=i+1; j<nums.length; j++) {
-      // if nums[i] + nums[i+1] equals target, increment pairs.
-      if (nums[i] + nums[j] === target) pairs++;
-
-      // if nums[i+1] + nums[i] equals target, increment pairs.
-      if (nums[j] + nums[i] === target) pairs++;
+  
+  // For each num in nums:
+  for (let i=0; i<nums.length; i++) {    
+    
+    // Check if nums[i] is a prefix of target.
+    if (target.startsWith(nums[i])) {  
+      
+      // Suffix
+      const suffix = target.substring(nums[i].length);
+      // Check in map for suffix and increment pairs by num of suffix.
+      if (suffix in map) pairs += map[suffix];
+    } 
+    
+    if (target.endsWith(nums[i])) {
+      
+      // Prefix
+      const prefix = target.substring(0, target.length - nums[i].length);
+      // Check in map for prefix and increment pairs by num of prefix.
+      if (prefix in map) pairs += map[prefix];
     }
+    
+    // Track num of prefix occurences.
+    map[nums[i]] = (map[nums[i]] || 0) + 1;
   }
   
   return pairs; // Return pairs.   
