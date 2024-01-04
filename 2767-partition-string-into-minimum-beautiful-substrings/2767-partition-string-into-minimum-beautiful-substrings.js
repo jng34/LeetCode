@@ -35,7 +35,7 @@ var minimumBeautifulSubstrings = function (s) {
         if (part1 === -1 || part2 === -1) {
           continue;
         } else {
-          minPartitions = Math.min(minPartitions, part1 + part2)
+          minPartitions = Math.min(minPartitions, part1 + part2);
         }
 
       }
