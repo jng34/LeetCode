@@ -16,13 +16,13 @@ function maximumSubarraySum(nums, k) {
     currSum += r;
     freq.set(r, (freq.get(r) || 0) + 1);
 
-    if (i < k - 1) continue;
-    if (freq.size == k) maxSum = Math.max(maxSum, currSum);
-
-    const l = nums[i - k + 1];
-    currSum -= l;
-    freq.set(l, (freq.get(l) || 0) - 1);
-    if (freq.get(l) === 0) freq.delete(l);
+    if (i >= k - 1) {
+      if (freq.size == k) maxSum = Math.max(maxSum, currSum);
+      const l = nums[i - k + 1];
+      currSum -= l;
+      freq.set(l, freq.get(l) - 1);
+      if (freq.get(l) === 0) freq.delete(l);
+    }
   }
   return maxSum;
 };
