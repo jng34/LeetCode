@@ -21,9 +21,10 @@ var leafSimilar = function(root1, root2) {
   // Main code
   const arr1 = findLeafNodes(root1); 
   const arr2 = findLeafNodes(root2);
-  if (arr1.length !== arr2.length) return false;
-  for (let i=0; i<arr1.length; i++) {
-    if (arr1[i] !== arr2[i]) return false;
+  while (arr1.length || arr2.length) {
+    const node1 = arr1.pop();
+    const node2 = arr2.pop();
+    if (node1 !== node2) return false;
   }
   return true;
   
