@@ -3,28 +3,16 @@
  * @return {string[]}
  */
 var generateParenthesis = function(n) {
-  let stack = [];
-  let results = [];
+  if (n === 1) return ['()'];
+  let res = [];
+  helper(n, n, ''); 
+  return res;
   
-  var backTrack = function(open, close) {
-    if (open === n && close === n) {
-      results.push(stack.join(''));
-      return;
-    }
-    
-    if (open < n) {
-      stack.push('(');
-      backTrack(open + 1, close);
-      stack.pop();
-    }
-    
-    if (close < open) {
-      stack.push(')');
-      backTrack(open, close + 1);
-      stack.pop();
-    }
+  //Helper function
+  function helper(open, close, combo) {
+    if (close < open) return;
+    if (close === 0 && open === 0) return res.push(combo);
+    if (open > 0) helper(open-1, close, combo+'(');
+    if (close > 0) helper(open, close-1, combo+')');
   }
-  
-  backTrack(0, 0);
-  return results;
 };
