@@ -30,9 +30,5 @@ var findWinners = function(matches) {
     if (losses === 1) answer[1].push(p);
   }
   
-  // Sort answer array in increasing order.
-  answer[0].sort((a,b) => a-b);
-  answer[1].sort((a,b) => a-b);
-  
   return answer;
 };
