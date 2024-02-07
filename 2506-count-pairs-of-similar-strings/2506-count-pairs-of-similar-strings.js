@@ -16,8 +16,9 @@ var similarPairs = function (words) {
 
   // function to check if sets have same elements
   function checkWords(word1, word2) {
-    const set1 = new Set([...word1]);
-    const set2 = new Set([...word2]);
+    const set1 = new Set(word1);
+    const set2 = new Set(word2);
+    if (set1.size !== set2.size) return false;
     const check1 = [...set1].every((ch) => set2.has(ch));
     const check2 = [...set2].every((ch) => set1.has(ch));
     return check1 && check2;
