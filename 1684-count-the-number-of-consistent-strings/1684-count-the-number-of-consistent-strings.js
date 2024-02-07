@@ -16,7 +16,6 @@ var countConsistentStrings = function (allowed, words) {
 
   // helper function to check if all chars in word appears in allowed
   function checkConsistency(word) {
-    const wordSet = new Set(word);
-    return [...wordSet].every((ch) => allowedSet.has(ch));
+    return word.split('').every((ch) => allowedSet.has(ch));
   }
 };
