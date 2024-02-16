@@ -4,9 +4,19 @@
  * @return {number}
  */
 var findLeastNumOfUniqueInts = function (arr, k) {
+  // track total unique elems
+  let count = 0;
+
   // Count the freq of elems
   const freq = {};
-  arr.forEach((n) => (freq[n] = (freq[n] || 0) + 1));
+  arr.forEach((n) => {
+    if (n in freq) {
+      freq[n]++;
+    } else {
+      freq[n] = 1;
+      count++;
+    }
+  });
 
   // Sort elems based on their freq, in descending order
   const entries = Object.entries(freq); // 2D array - array of key-val pairs
@@ -15,17 +25,12 @@ var findLeastNumOfUniqueInts = function (arr, k) {
   // Iterate through entries and decrement (remove) k numbers
   for (let entry of entries) {
     const num = entry[0];
-    while (k > 0 && freq[num] > 0) {
-      freq[num]--;
-      k--;
+    if (k > 0 && k >= freq[num]) {
+      k -= freq[num];
+      count--;
+    } else { // k < freq[num]
+      break;
     }
-  }
-
-  let count = 0;
-  
-  // Iterate through freq to count nums with freq > 0
-  for (let n in freq) {
-    if (freq[n] > 0) count++;
   }
 
   return count;
