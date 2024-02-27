@@ -11,34 +11,22 @@
  * @param {TreeNode} q
  * @return {boolean}
  */
-
-//Iterative Solution
 var isSameTree = function(p, q) {
-    let queue = [p, q];
-    while (queue.length > 0) {
-        let pNode = queue.shift();
-        let qNode = queue.shift();
-        
-        if (!pNode && !qNode) continue;
-        if (!pNode || !qNode || pNode.val !== qNode.val) return false;
-        
-        queue.push(pNode.left);
-        queue.push(qNode.left);
-        queue.push(pNode.right);
-        queue.push(qNode.right);
-        
-    }
+  let queue = [p, q];
+  
+  while (queue.length > 0) {
+    const curr1 = queue.shift();
+    const curr2 = queue.shift();
     
-    return true;
-}
-
-
-
-
-// Recursive Solution
-// var isSameTree = function(p, q) {
-//     if (!p && !q) return true;
-//     if (!p || !q) return false;
-//     if (p.val !== q.val) return false;
-//     return isSameTree(p.left, q.left) && isSameTree(p.right, q.right)
-// }
+    // compare values and return false if unequal
+    if (!curr1 && !curr2) continue;
+    if (!curr1 || !curr2 || curr1.val !== curr2.val) return false;
+    
+    queue.push(curr1.left);
+    queue.push(curr2.left);
+    queue.push(curr1.right);
+    queue.push(curr2.right);
+  }
+  
+  return true;
+};
