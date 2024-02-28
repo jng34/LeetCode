@@ -11,14 +11,15 @@
  * @return {number}
  */
 var findBottomLeftValue = function(root) {
-    const levelsArr = [];
-    fillLevels(root, levelsArr, 0);
-    return levelsArr[levelsArr.length - 1];
+  let ans = 0;
+  let height = 0;
+  let queue = [root];
+  // BFS
+  while (queue.length) {
+    const node = queue.shift();
+    ans = node.val;
+    if (node.right) queue.push(node.right);
+    if (node.left) queue.push(node.left);
+  }
+  return ans;
 };
-
-const fillLevels = (node, arr, level) => {
-  if (!node) return;
-  if (arr[level] === undefined) arr.push(node.val);
-  fillLevels(node.left, arr, level + 1)
-  fillLevels(node.right, arr, level + 1)
-}
