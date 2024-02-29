@@ -11,9 +11,6 @@
  * @return {boolean}
  */
 var isEvenOddTree = function (root) {
-  // if root is even, return false
-  if (root.val % 2 === 0) return false;
-
   // use hash obj to store keys = levels, vals = [ node values ]
   const levels = {};
   // Iterate through binary tree using DFS
@@ -21,8 +18,22 @@ var isEvenOddTree = function (root) {
 
   while (stack.length > 0) {
     const [cur, lvl] = stack.pop();
+    
+    // if even level has even # or odd level has odd #, return false.
+    if (lvl % 2 === 0 && cur.val % 2 === 0) return false;
+    if (lvl % 2 === 1 && cur.val % 2 === 1) return false;
+    
     // store current node val in the array for that level
     if (lvl in levels) {
+      const arr = levels[lvl];
+      const last = arr[arr.length - 1];
+      if (lvl % 2 === 0) {
+        // check each even # level to see if array has increasing odd #s
+        if (last >= cur.val) return false;
+      } else {
+        // check each odd # level to see if array has decreasing even #s
+        if (last <= cur.val) return false;
+      }
       levels[lvl].push(cur.val);
     } else {
       levels[lvl] = [cur.val];
@@ -31,30 +42,6 @@ var isEvenOddTree = function (root) {
     if (cur.right) stack.push([cur.right, lvl + 1]);
     if (cur.left) stack.push([cur.left, lvl + 1]);
   }
-
-  for (let lvl in levels) {
-    const arr = levels[lvl];
-    // check each even # level to see if array has increasing odd #s
-    if (Number(lvl) % 2 === 0) {
-      let prev = arr[0];
-      if (prev % 2 === 0) return false
-      for (let i = 1; i < arr.length; i++) {
-        prev = arr[i - 1];
-        const curr = arr[i];
-        if (curr % 2 === 0 || curr <= prev) return false;
-      }
-    } 
-    // check each odd # level to see if array has decreasing even #s
-    else {
-      let prev = arr[0];
-      if (prev % 2 === 1) return false;
-      for (let i = 1; i < arr.length; i++) {
-        prev = arr[i - 1];
-        const curr = arr[i];
-        if (curr % 2 === 1 || curr >= prev) return false;
-      }
-    }
-  }
-
+  
   return true;
 };
