@@ -10,25 +10,25 @@
  * @return {ListNode}
  */
 var middleNode = function(head) {
-    // Store node vals in an array
-    const vals = [];
+    // find length of linked list
+    let length = 0;
     
     // iterate through linked list 
     let curr = head;
     while (curr) {
-        vals.push(curr.val);
+        length++;
         curr = curr.next;
     }
     
     // find the middle index
-    let mid = Math.floor(vals.length/2);
+    let mid = Math.floor(length/2);
     
     // iterate through linked list again and return middle node
-    let midNode = head;
+    curr = head;
     while (mid > 0) {
-        midNode = midNode.next;
+        curr = curr.next;
         mid--;
     }
     
-    return midNode;
+    return curr;
 };
