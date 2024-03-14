@@ -18,7 +18,7 @@ var binaryTreePaths = function(root) {
 
     // helper function DFS
     function findRootPath(node, path) {
-      if (!node || (!node.left && !node.right)) return ans.push(path); 
+      if (!node.left && !node.right) return ans.push(path); 
       if (node.left) findRootPath(node.left, path + '->' + node.left.val);
       if (node.right) findRootPath(node.right, path + '->' + node.right.val);
       return path;
