@@ -10,10 +10,12 @@ var buildArray = function(target, n) {
   
   while (j < target.length) {
     if (i === target[j]) {
+      // if i matches target[j], then just push & increment i and j
       opers.push("Push");
       i++;
       j++;
     } else {
+      // if i does NOT match target[j], then push & pop & increment i ONLY
       opers.push("Push", "Pop");
       i++;
     }
