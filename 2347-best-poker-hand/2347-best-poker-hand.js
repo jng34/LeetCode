@@ -4,39 +4,26 @@
  * @return {string}
  */
 var bestHand = function(ranks, suits) {
-  // track best possible hands with hashmap
-  const hands = {};
+  // Sequentially check from best to worst hand
   
-  // iterate through suits and ranks
-  for (let i = 0; i < suits.length; i++) {  
-    // count freq of suits for possible "Flush"
-    hands[suits[i]] = (hands[suits[i]] || 0) + 1;
-    
-    // count cards with same rank
-    hands[ranks[i]] = (hands[ranks[i]] || 0) + 1;
+  // Check for a flush
+  for (let i = 1; i < suits.length; i++) {
+    if (suits[i-1] !== suits[i]) break;
+    if (i === 4) return "Flush";
   }
   
-  
-  // Check for flush first
-  for (let c in hands) {
-    if (!Number.isInteger(+c) && hands[c] === 5) {
-       return "Flush";
-    }
+  // Check for three of a kind
+  const freq = {};
+  for (let r of ranks) {
+    freq[r] = (freq[r] || 0) + 1;
+    if (freq[r] === 3) return "Three of a Kind";
   }
   
-  // then check for trips
-  for (let c in hands) {
-    if (Number.isInteger(+c) && hands[c] >= 3) {
-      return "Three of a Kind";
-    }
+  // Check for a pair
+  for (let c in freq) {
+    if (freq[c] === 2) return "Pair";
   }
   
-  // check for a pair
-  for (let c in hands) {
-    if (Number.isInteger(+c) && hands[c] === 2) {
-      return "Pair";
-    }
-  }
-  
+  // Else return high card
   return "High Card";
 };
