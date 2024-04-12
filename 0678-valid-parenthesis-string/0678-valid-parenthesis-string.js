@@ -2,48 +2,33 @@
  * @param {string} s
  * @return {boolean}
  */
-var checkValidString = function(s) {
-  // Use two stacks to track open brackets and asterisks
-  // and balance close brackets
-  let starStack = [];
-  let openStack = [];
-  
-  for (let i = 0; i < s.length; i++) {
-    const ch = s[i];
-    if (ch === '(') {
-      openStack.push(i);
-    } else if (ch === '*') {
-      starStack.push(i);
-    } else {
-      // ch is a closing bracket ')'
-      if (openStack.length > 0) {
-        openStack.pop();
-      } else if (starStack.length > 0) {
-        starStack.pop();
-      } else {
-        return false;
-      }
+// Dynamic Programming - Top down approach
+var checkValidString = function (s) {
+  // Recursion and Memoization
+  // track count of openBrackets: +1 for open, -1 for close
+  const memo = {};
+  return isValidString(0, 0);
+
+  // isValidString helper
+  function isValidString(idx, openBrackets) {
+    if (idx === s.length) return openBrackets === 0;
+    if (openBrackets < 0) return false;
+    
+    const key = idx + ',' + openBrackets;
+    if (key in memo) return memo[key];
+    let isValid = false;
+
+    if (s[idx] === '*') { // handle * case
+      isValid = isValidString(idx + 1, openBrackets + 1) || // treat * as ( 
+                isValidString(idx + 1, openBrackets - 1) || // treat * as )
+                isValidString(idx + 1, openBrackets); // treat * as empty
+    } else if (s[idx] === '(') {
+        isValid = isValidString(idx + 1, openBrackets + 1); // increment for '('
+    } else if (s[idx] === ')') { 
+        isValid = isValidString(idx + 1, openBrackets - 1); // decrement for ')'
     }
+    
+    memo[key] = isValid;
+    return memo[key];
   }
-  
-  // check to see if open brackets balance asterisks
-  while (openStack.length > 0 && starStack.length > 0) {
-    const open = openStack[openStack.length - 1];
-    const star = starStack[starStack.length - 1];
-    // if open idx is greater than star idx, then that means it cannot form a valid parentheses
-    if (open > star) {
-      return false;
-    } else {
-      openStack.pop();
-      starStack.pop();
-    }
-  }
-  
-  // this means all open brackets are accounted for
-  // remaining asterisks can be empty strings
-  return openStack.length === 0;
 };
-
-
-
-
