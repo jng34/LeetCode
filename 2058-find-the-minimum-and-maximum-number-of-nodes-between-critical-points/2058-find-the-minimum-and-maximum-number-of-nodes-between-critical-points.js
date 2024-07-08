@@ -25,17 +25,21 @@ var nodesBetweenCriticalPoints = function(head) {
             indices.push(idx);
         }
         
-        // find min and max distances of critical pts
+        // find and update min distances of critical pts
         if (indices.length > 1) {
             const minDiff = indices[indices.length - 1] - indices[indices.length - 2];
-            const maxDiff = indices[indices.length - 1] - indices[0];
             ans[0] = Math.min(ans[0], minDiff);
-            ans[1] = Math.max(ans[1], maxDiff);
         }
         prev = curr;
         curr = next;
         next = next.next;
     }
     
-    return (indices.length <= 1) ? [-1, -1] : ans;
+    if (indices.length <= 1) {
+        return [-1, -1]; 
+    } else {
+        // update max
+        ans[1] = indices[indices.length-1] - indices[0];
+        return ans;
+    }
 };
