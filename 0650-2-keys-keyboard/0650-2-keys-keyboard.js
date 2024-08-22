@@ -5,6 +5,7 @@
 var minSteps = function(n) {
     // base case
     if (n === 1) return 0;
+    const memo = {};
     return executeOp(2, 2, 1); // call fn after 1st copy
     
     // use recursion to count and compare all steps 
@@ -14,6 +15,8 @@ var minSteps = function(n) {
         // then return num of operations
         if (numOfAs === n) return numOps;
         if (numOfAs > n) return 1000;
+        const key = numOfAs + ',' + prevNum;
+        if (memo[key]) return memo[key];
         
         // 1. Copy all characters AND Paste 
         const opt1 = executeOp(numOps + 2, numOfAs*2, numOfAs);
@@ -21,6 +24,7 @@ var minSteps = function(n) {
         // 2. Paste characters from previous copy
         const opt2 = executeOp(numOps + 1, numOfAs + prevNum, prevNum);
         
-        return Math.min(opt1, opt2);
+        memo[key] = Math.min(opt1, opt2);
+        return memo[key];
     }
 };
