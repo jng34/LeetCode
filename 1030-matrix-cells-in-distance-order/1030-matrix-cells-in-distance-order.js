@@ -18,6 +18,7 @@ var allCellsDistOrder = function(rows, cols, rCenter, cCenter) {
     
     // Sort array of coordinates array based off of distances array
     return coordinates.sort((a, b) => {
+        // destructure coordinates a and b
         const [r1, c1] = a;
         const [r2, c2] = b;
         
