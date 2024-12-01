@@ -3,16 +3,21 @@
  * @return {boolean}
  */
 var checkIfExist = function(arr) {
-  // Iterate through each index i in arr
-  for (let i = 0; i < arr.length - 1; i++) {
-    // For each i, iterate from i + 1 to arr.length to see if arr[i] == 2 * arr[j]
-    for (let j = i + 1; j < arr.length; j++) {
-      // If so, return true
-      if (arr[i] === 2 * arr[j] || arr[j] === 2 * arr[i]) return true;
+  // For each el, store el * 2 and el / 2 in a set
+  // Iterate through rest of els, 
+  // Check if double or half value of el exists, return true if so
+  // Else, store double and halve values
+  const values = new Set();
+  
+  for (let n of arr) {
+    const double = 2*n;
+    const half = n/2;
+    if (values.has(half) || values.has(double)) {
+      return true;
+    } else {
+      values.add(n);
     }
   }
-  
-  
-  
+ 
   return false;
 };
