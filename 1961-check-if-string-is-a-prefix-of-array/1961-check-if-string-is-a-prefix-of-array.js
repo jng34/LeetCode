@@ -10,7 +10,7 @@ var isPrefixString = function(s, words) {
   for (let word of words) {
     const len = word.length;
     const prefix = s.substring(currIdx, currIdx + len);
-    if (s.substring(currIdx, currIdx + len) !== word) return false;
+    if (prefix !== word) return false;
     currIdx += len;
     if (currIdx >= s.length) break;
   }
