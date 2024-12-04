@@ -8,11 +8,12 @@ var canMakeSubsequence = function(str1, str2) {
     let i = 0, j = 0;
     
     // str2 = 'ad'
-                 // j
+    //            j
     // str1 = 'abc'
-                  // i
+    //            i = 3
     while (j < str2.length) {
         const asciiCode2 = str2[j].charCodeAt(0);
+        
         while (i < str1.length) {
             const asciiCode1 = str1.charCodeAt(i);
             const nextCode1 = (asciiCode1 === 122 ? 97 : asciiCode1 + 1);
@@ -24,14 +25,9 @@ var canMakeSubsequence = function(str1, str2) {
                 i++;
             }
         }
-        if (i === str1.length) {
-            if (j === str2.length) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-            
+        
+        if (i === str1.length) break; 
     }
-    return true;
+    
+    return j === str2.length;
 };
