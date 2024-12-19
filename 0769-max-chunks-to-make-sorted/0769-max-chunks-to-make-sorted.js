@@ -4,10 +4,9 @@
  */
 var maxChunksToSorted = function(arr) {
     // Create prefix and suffix arrays to find chunks
-    // Initiate prefix chunk = arr[0]
     let prefixMax = arr[0], suffixMin = Infinity, chunks = 1;
     
-    for (let i = 1; i < arr.length; i++) {
+    for (let i = 0; i < arr.length; i++) {
         // Compare min of suffix and max of prefix
         // Min(suffix) > Max(prefix) in order to chunk )+1)
         suffixMin = Math.min(...arr.slice(i));
@@ -17,13 +16,4 @@ var maxChunksToSorted = function(arr) {
     }
     
     return chunks;
-//     Initiate suffix chunk = arr[1:]
-//     prefix[1] 
-//     suffix[0,2,3,4]
-//            i
-           
-//     pref = 1
-//     suff = 0
-//     arr [1,0,2,3,4]
-//            i
 };
