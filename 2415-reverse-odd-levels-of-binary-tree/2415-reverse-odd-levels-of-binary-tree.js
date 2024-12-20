@@ -11,37 +11,19 @@
  * @return {TreeNode}
  */
 var reverseOddLevels = function(root) {
-  // Traverse through binary tree
-  let queue = [ root ]; 
-  let level = 0;
-  
-  while (queue.length > 0) {
-    const n = queue.length;
-    // Store current list of nodes
-    const listOfNodes = [];
-    
-    for (let i = 0; i < n; i++) {
-      const node = queue.shift();
-      listOfNodes.push(node);
-      
-      if (node.left) queue.push(node.left);
-      if (node.right) queue.push(node.right);
-    }
-  
-    console.log(listOfNodes)
-    if (level % 2 === 1) {
-      // Reverse the node values in odd level
-      let l = 0, r = listOfNodes.length - 1;
-      while (l < r) {
-        [listOfNodes[l].val, listOfNodes[r].val] = [listOfNodes[r].val, listOfNodes[l].val]
-        l++;
-        r--;
-      }
-    }
-    
-    // Increment level
-    level++;
-  }
-  
+  dfs(root.left, root.right, 1);
   return root;
+  
+  function dfs(leftChild, rightChild, level) {
+    // base case 
+    if (!leftChild || !rightChild) return;
+    
+    // Swap values of leftChild's left child with rightChild's right child if it is an odd level
+    if (level % 2 === 1) {
+      [leftChild.val, rightChild.val] = [rightChild.val, leftChild.val];
+    }
+    
+    dfs(leftChild.left, rightChild.right, level + 1);
+    dfs(leftChild.right, rightChild.left, level + 1);
+  }
 };
