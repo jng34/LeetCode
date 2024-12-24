@@ -28,30 +28,29 @@ var minimumOperations = function(root) {
     }
     
     // Find number of swaps to get in ascending order
-    const swaps = selectionSort(nodeVals);
+    const swaps = getNumberOfSwaps(nodeVals);
     operations += swaps;
   }
   
-  function selectionSort(array) {
-      let temp;
-      let swaps = 0;
-      for (let i = 0; i < array.length; i++){
-          let minimum = i;
+  function getNumberOfSwaps(array) {
+    const target = [...array].sort((a,b) => a-b);
+    let swaps = 0;
 
-          for (let j = i + 1; j<array.length; j++) {
-              if (array[j] < array[minimum]) {
-                minimum = j;
-              }
-          }
-          
-          if (i !== minimum) {
-            temp = array[i];
-            array[i] = array[minimum];
-            array[minimum] = temp;
-            swaps++;
-          }
-      }
-      return swaps;
+    // Map to track current position of values
+    const tracker = {};
+    array.forEach((n, idx) => tracker[n] = idx);
+    console.log(tracker)
+
+    for (let i = 0; i < array.length; i++){
+        if (array[i] !== target[i]) {
+          swaps++;
+          // Update position of swapped values
+          let currPos = tracker[target[i]]; 
+          tracker[array[i]] = currPos; 
+          array[currPos] = array[i];
+        }
+    }
+    return swaps;
   };
   
   return operations;
