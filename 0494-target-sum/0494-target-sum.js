@@ -6,22 +6,25 @@
 var findTargetSumWays = function(nums, target) {
   // Dynamic programming
   // Find the number of ways to evaluate to target sum using + and -
-  let ans = 0;
-  calculateTarget(nums[0], 1);
-  calculateTarget(-nums[0], 1);
-  return ans;
-  
-  
+  const memo = {};
+  return calculateTarget(0, 0);
+
   // Helper function
-  function calculateTarget(currVal, idx) {
+  function calculateTarget(currSum, idx) {
     if (idx === nums.length) {
-      if (currVal === target) {
-        return ans++;
+      if (currSum === target) {
+        return 1; 
       } else {
-        return;
+        return 0;
       }
     }
-    calculateTarget(currVal + nums[idx], idx + 1); // Add next num "+"
-    calculateTarget(currVal - nums[idx], idx + 1); // Subtract next num '-'
+    const key = currSum + "," + idx;
+    if (key in memo) return memo[key];
+    
+    const add = calculateTarget(currSum + nums[idx], idx + 1); // Add next num "+"
+    const subtract = calculateTarget(currSum - nums[idx], idx + 1); // Subtract next num '-'
+    
+    memo[key] = add + subtract;
+    return memo[key];
   }
 };
